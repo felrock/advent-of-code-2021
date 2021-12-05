@@ -1,4 +1,4 @@
 *.exe
 *.out
 build
-
+compile_commands.json

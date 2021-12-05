@@ -1,48 +1,59 @@
 #include <helper.h>
 #include <bitset>
 
-bool checkFor(int ones, int zeroes, bool type)
-{
-   if (type)
-   {
-      return ones >= zeroes;
-   }
-   else
-   {
-      return ones < zeroes;
-   }
-}
-
-void reduce(std::vector<std::string>& bits, bool type)
+std::string reduce(std::vector<std::string> bits, bool rating)
 {
    std::vector<int> common(bits[0].size());
-   while (bits.size() != 1)
+   int i=0; // current bit index
+   while (bits.size() >= 1)
    {
       // clear common
-      std::fill(bits.begin(), bits.end(), 0);
+      std::fill(common.begin(), common.end(), 0);
 
       // find frequency of ones
-      for (auto b : new_bits)
+      for (auto bit : bits)
       {
-         for (int j=0; j < b.size(); ++j)
+         for (int j=0; j < bit.size(); ++j)
          {
-            if (b[j] == '1')
+            if (bit[j] == '1')
             {
                common[j]++;
             }
          }
       }
-
-      // make a copy to transfer to
       std::vector<std::string> cpy_bits;
       int ones = common[i];
-      int zeroes = new_bits.size() - ones;
-      std::remove_if(oxygen.begin(), oxygen.end(), [&](std::string item){
-            return item[i] == '0' && checkFor(ones, zeroes, type);
-      });
+      int zeroes = bits.size() - ones;
+      for (auto bit : bits)
+      {
+         if(rating)
+         {
+            if (bit[i] == '1' && ones >= zeroes)
+            {
+               cpy_bits.push_back(bit);
+            }
+            else if (bit[i] == '0' && ones < zeroes)
+            {
+               cpy_bits.push_back(bit);
+            }
+         }
+         else
+         {
+            if (bit[i] == '0' && ones >= zeroes)
+            {
+               cpy_bits.push_back(bit);
+            }
+            else if (bit[i] == '1' && ones < zeroes)
+            {
+               cpy_bits.push_back(bit);
+            }
+         }
+      }
+      i++;
+      bits = cpy_bits;
    }
+   return bits[0];
 }
-
 
 
 int main(int argc, char** argv)
@@ -52,18 +63,13 @@ int main(int argc, char** argv)
       std::cout << "pass filename" << std::endl;
       return 1;
    }
-
    // read input
    auto bits = helper::getFileContent(argv[1]);
-   // oxygen
-   std::vector<std::string> oxygen = bits;
-   reduce(oxygen, true);
-   int oxygen_value = std::bitset<32>(oxygen[0]).to_ulong() << std::endl;
 
-   std::vector<std::string> scrubber = bits;
-   reduce(scrubber, false);
-   int scrubber_value = std::bitset<32>(scrubber[0]).to_ulong() << std::endl;
-
-   std::cout << "answer: " << oxygen_value*scrubber_value << std::endl;
+   auto oxy_rating = reduce(bits, true);
+   auto oxy_value = std::bitset<12>(oxy_rating).to_ulong();
+   auto scr_rating = reduce(bits, false);
+   auto scr_value = std::bitset<12>(scr_rating).to_ulong();
+   std::cout << "answer: " << oxy_value*scr_value << std::endl;
    return 0;
 }

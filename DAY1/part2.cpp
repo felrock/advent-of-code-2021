@@ -12,7 +12,7 @@ int main(int argc, char** argv)
    }
 
    auto file_content = helper::getFileContent(argv[1]);
-   auto numbers = helper::to_string(file_content);
+   auto numbers = helper::stoi(file_content);
    int previous = INT_MAX;
    int increased = 0;
    for (int i=0; i < numbers.size()-2; ++i)

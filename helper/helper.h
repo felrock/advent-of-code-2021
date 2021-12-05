@@ -40,7 +40,34 @@ std::vector<std::string> split(std::string str, const std::string delimiter=" ")
    return strings;
 }
 
-std::vector<int> to_string(const std::vector<std::string>& strings)
+std::vector<std::string> split_ud(std::string str, const char delimiter=' ')
+{
+   // uneven delim
+   std::vector<std::string> strings;
+   size_t pos = 0;
+   std::string token;
+   for (int i=0; i < str.size(); ++i)
+   {
+      if (str[i] == delimiter && token.empty())
+      {
+         continue;
+      }
+      else if(str[i] == delimiter)
+      {
+         strings.push_back(token);
+         token.clear();
+      }
+      else
+      {
+         token += str[i];
+      }
+   }
+   strings.push_back(token);
+
+   return strings;
+}
+
+std::vector<int> stoi(const std::vector<std::string>& strings)
 {
    std::vector<int> numbers;
    for (const auto& str : strings)

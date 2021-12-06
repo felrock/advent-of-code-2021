@@ -21,17 +21,24 @@ Point direction(Line line)
   Point end = line.second;
   int dx = end.first - start.first;
   int dy = end.second - start.second;
-  int mag = std::sqrt(dx*dx + dy*dy);
-  Point vec = Point(dx/mag, dy/mag);
-
-  return vec;
+  if ( dx != 0 && dy == 0)
+  {
+    return Point(dx/std::abs(dx), dy);
+  }
+  else if (dx == 0 && dy != 0)
+  {
+    return Point(dx, dy/std::abs(dy));
+  }
+  else
+  {
+    return Point(dx/abs(dx), dy/std::abs(dy));
+  }
 }
 
 void draw(Grid& g, Line line)
 {
   Point pen = line.first;
   Point dir = direction(line);
-
   while (!equal(pen, line.second))
   {
     g[pen.second][pen.first]++;
@@ -66,6 +73,14 @@ int countOverlap(Grid g)
     }
   }
   return count;
+}
+
+bool isGridLine(Line line)
+{
+  Point start = line.first;
+  Point end = line.second;
+  bool abs_diff = std::abs(start.first - end.first) == std::abs(start.second - end.second);
+  return (start.first == end.first || start.second == end.second) || abs_diff;
 }
 
 int main(int argc, char** argv)
@@ -107,13 +122,11 @@ int main(int argc, char** argv)
       max_y = third_split[1];
     }
   }
-  std::cout << "max_x " << max_x << " max_y " << max_y << std::endl;
   Grid grid(max_x+1, std::vector<int>(max_y+1, 0));
   for (auto& line : lines)
   {
-    if (line.first.first == line.second.first || line.first.second == line.second.second)
+    if (isGridLine(line))
     {
-      std::cout << "draw" << std::endl;
       draw(grid, line);
     }
   }

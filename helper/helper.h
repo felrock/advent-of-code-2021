@@ -7,6 +7,7 @@
 #include <vector>
 #include <unordered_map>
 #include <unordered_set>
+#include <math.h>
 
 namespace helper
 {
@@ -77,5 +78,54 @@ std::vector<int> stoi(const std::vector<std::string>& strings)
 
    return numbers;
 }
+
+
+using Point = std::pair<int, int>;
+using Line = std::pair<Point, Point>;
+
+Point add(Point p1, Point p2)
+{
+  return Point(p1.first + p2.first, p1.second + p2.second);
+}
+
+bool equal(Point p1, Point p2)
+{
+  return p1.first == p2.first && p1.second == p2.second;
+}
+
+Point direction_simple(Line line)
+{
+  // only horizontal or vertical lines
+  Point start = line.first;
+  Point end = line.second;
+  int dx = end.first - start.first;
+  int dy = end.second - start.second;
+  int mag = std::sqrt(dx*dx + dy*dy);
+  Point vec = Point(dx/mag, dy/mag);
+
+  return vec;
+}
+
+Point direction_adv(Line line)
+{
+  // horizontal, vertical and 45% degrees
+  Point start = line.first;
+  Point end = line.second;
+  int dx = end.first - start.first;
+  int dy = end.second - start.second;
+  if ( dx != 0 && dy == 0)
+  {
+    return Point(dx/std::abs(dx), dy);
+  }
+  else if (dx == 0 && dy != 0)
+  {
+    return Point(dx, dy/std::abs(dy));
+  }
+  else
+  {
+    return Point(dx/abs(dx), dy/std::abs(dy));
+  }
+}
+
 
 } // namespace helper

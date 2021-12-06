@@ -1,41 +1,18 @@
 #include <helper.h>
-#include <math.h>
 
-using Point = std::pair<int, int>;
-using Line = std::pair<Point, Point>;
+using Point = helper::Point;
+using Line = helper::Line;
 using Grid = std::vector<std::vector<int>>;
-
-Point add(Point p1, Point p2)
-{
-  return Point(p1.first + p2.first, p1.second + p2.second);
-}
-
-bool equal(Point p1, Point p2)
-{
-  return p1.first == p2.first && p1.second == p2.second;
-}
-
-Point direction(Line line)
-{
-  Point start = line.first;
-  Point end = line.second;
-  int dx = end.first - start.first;
-  int dy = end.second - start.second;
-  int mag = std::sqrt(dx*dx + dy*dy);
-  Point vec = Point(dx/mag, dy/mag);
-
-  return vec;
-}
 
 void draw(Grid& g, Line line)
 {
   Point pen = line.first;
-  Point dir = direction(line);
+  Point dir = helper::direction_simple(line);
 
-  while (!equal(pen, line.second))
+  while (!helper::equal(pen, line.second))
   {
     g[pen.second][pen.first]++;
-    pen = add(pen, dir);
+    pen = helper::add(pen, dir);
   }
   g[pen.second][pen.first]++;
 }
@@ -107,13 +84,11 @@ int main(int argc, char** argv)
       max_y = third_split[1];
     }
   }
-  std::cout << "max_x " << max_x << " max_y " << max_y << std::endl;
   Grid grid(max_x+1, std::vector<int>(max_y+1, 0));
   for (auto& line : lines)
   {
     if (line.first.first == line.second.first || line.first.second == line.second.second)
     {
-      std::cout << "draw" << std::endl;
       draw(grid, line);
     }
   }

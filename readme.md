@@ -7,7 +7,6 @@ mkdir build
 cd build
 cmake ..
 make all
-./day1part1 <input>
 ```
 
 ## Run

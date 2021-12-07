@@ -1,5 +1,7 @@
 # AoC++
 
+Advent of Code 2021 problem solutions written in C++
+
 ## Build
 
 ```
@@ -14,3 +16,6 @@ make all
 ```
 ./day1part1 <input>
 ```
+
+## See problems here
+https://aventofcode.com/

@@ -12,10 +12,10 @@ const int SEVEN = 3;
 const int EIGHT = 7;
 const int NINE  = 6;
 
-int same(std::string a, std::string b)
+int same(const std::string& a, const std::string& b)
 {
   int eq = 0;
-  for (auto chr : a)
+  for (const auto& chr : a)
   {
     if (b.find(chr) == std::string::npos)
     {
@@ -26,7 +26,7 @@ int same(std::string a, std::string b)
 
 }
 
-std::vector<std::string> deduce(std::vector<std::string> signals)
+std::vector<std::string> deduce(const std::vector<std::string>& signals)
 {
   std::vector<std::string> known;
   std::string one = *std::find_if(signals.begin(), signals.end(),
@@ -86,7 +86,7 @@ int main(int argc, char** argv)
     auto signal = signals[i];
     auto known = deduce(signal);
     std::string number;
-    for (auto d : digits[i])
+    for (const auto& d : digits[i])
     {
       if (d.size() == ONE)
       {

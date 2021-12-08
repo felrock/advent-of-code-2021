@@ -48,7 +48,7 @@ int main(int argc, char** argv)
     digits.push_back(digit_row);
   }
   int taget_numbers = 0;
-  for (auto digit_row : digits)
+  for (const auto& digit_row : digits)
   {
     for (auto digit : digit_row)
     {

@@ -50,7 +50,7 @@ int main(int argc, char** argv)
   int taget_numbers = 0;
   for (const auto& digit_row : digits)
   {
-    for (auto digit : digit_row)
+    for (const auto& digit : digit_row)
     {
       if (digit.size() == ONE)
       {

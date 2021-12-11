@@ -126,6 +126,14 @@ Point direction_adv(Line line)
     return Point(dx/abs(dx), dy/std::abs(dy));
   }
 }
-
+template<typename T>
+void printArray(std::vector<T> array)
+{
+  for (auto itm : array)
+  {
+    std::cout << itm << " ";
+  }
+  std::cout << std::endl;
+}
 
 } // namespace helper

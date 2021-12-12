@@ -1,0 +1,26 @@
+## before re-factoring:
+
+```
+./day12part1 ../day12/input
+answer: 4754
+./day12part1 ../day12/input  0,07s user 0,00s system 99% cpu 0,072 total
+```
+
+```
+answer: 143562
+./day12part2 ../day12/input  2,47s user 0,01s system 99% cpu 2,487 total
+```
+
+
+## after re-factoring:
+
+```
+./day12part1 ../day12/input
+answer: 4754
+./day12part1 ../day12/input  0,06s user 0,00s system 99% cpu 0,060 total
+```
+
+```
+answer: 143562
+./day12part2 ../day12/input  1,66s user 0,00s system 99% cpu 1,660 total
+```

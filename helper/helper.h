@@ -126,6 +126,7 @@ Point direction_adv(Line line)
     return Point(dx/abs(dx), dy/std::abs(dy));
   }
 }
+
 template<typename T>
 void printArray(std::vector<T> array)
 {
@@ -134,6 +135,18 @@ void printArray(std::vector<T> array)
     std::cout << itm << " ";
   }
   std::cout << std::endl;
+}
+
+bool isStringLowerCase(const std::string& str)
+{
+  for (size_t i=0; i < str.size(); ++i)
+  {
+    if (std::isupper(str[i]))
+    {
+      return false;
+    }
+  }
+  return true;
 }
 
 } // namespace helper
